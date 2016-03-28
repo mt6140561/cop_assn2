@@ -47,9 +47,7 @@ public class allcomplaints extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+
      * @return A new instance of fragment allcomplaints.
      */
 
@@ -114,7 +112,7 @@ public class allcomplaints extends Fragment {
                 table.addView(row);
             } else {
                 Log.d("here", read1[0] + "      " + read1[1]);
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < 4; j++) {
                     TextView tes = new TextView(this.getActivity());
                     String addt = read1[j]+"      ";
                     tes.setText(addt);

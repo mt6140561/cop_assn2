@@ -188,7 +188,7 @@ public class Overview extends AppCompatActivity
             JSONArray arr1 = json.getJSONArray("complaintsinsti");
             JSONArray arr2 = json.getJSONArray("complaintssamelevel");
             JSONArray arr3 = json.getJSONArray("complaintsself");
-            String[][] ret = new String[arr1.length()+arr2.length()+arr3.length()+1][3];
+            String[][] ret = new String[arr1.length()+arr2.length()+arr3.length()+1][4];
             if((arr1.length()+arr2.length()+arr3.length())==0){
                 String[][] q=new String[1][1];
                 q[0][0]="No Complaints";
@@ -196,15 +196,15 @@ public class Overview extends AppCompatActivity
             }
             ret[0][0]="Complaints_id";
             ret[0][1]="Title";
-            ret[0][2]="resolved";
-
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
             for (int i = 1; i < arr1.length()+1; i++) {
 
                 ret[i][0]=arr1.getJSONObject(i-1).getString("id");
                 ret[i][1]=arr1.getJSONObject(i-1).getString("title");
 
                 ret[i][2]=arr1.getJSONObject(i-1).getString("resolve_bool");
-
+                ret[i][3]=arr1.getJSONObject(i-1).getString("level");
 
             }
 
@@ -214,6 +214,7 @@ public class Overview extends AppCompatActivity
                 ret[i+arr1.length()+1][1]=arr2.getJSONObject(i).getString("title");
 
                 ret[i+arr1.length()+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+arr1.length()+1][3]=arr2.getJSONObject(i).getString("level");
 
 
             }
@@ -224,6 +225,8 @@ public class Overview extends AppCompatActivity
                 ret[i+arr1.length()+1+ arr2.length()][1]=arr3.getJSONObject(i).getString("title");
 
                 ret[i+arr1.length()+1+ arr2.length()][2]=arr3.getJSONObject(i).getString("resolve_bool");
+
+                ret[i+arr1.length()+1+ arr2.length()][3]=arr3.getJSONObject(i).getString("level");
 
 
             }

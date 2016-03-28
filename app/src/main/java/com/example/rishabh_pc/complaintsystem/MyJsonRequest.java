@@ -21,8 +21,8 @@ import java.util.Map;
 public class MyJsonRequest extends JsonObjectRequest {
     public Map<String, String> params = new HashMap<String, String>();
 
-    public MyJsonRequest(int method, String url, JSONObject json, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
-        super(method, url, json, listener, errorListener);
+    public MyJsonRequest(String url, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        super(Method.GET, url, null, listener, errorListener);
     }
 
     @Override

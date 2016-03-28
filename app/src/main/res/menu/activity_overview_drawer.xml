@@ -5,7 +5,7 @@
         <item
             android:id="@+id/Notification"
 
-            android:title="Import" />
+            android:title="Notification" />
         <item
             android:id="@+id/filter_by_hostel"
             android:title="Filter by hostel" />

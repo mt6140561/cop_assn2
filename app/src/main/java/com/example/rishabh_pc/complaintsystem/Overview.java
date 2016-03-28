@@ -62,6 +62,9 @@ public class Overview extends AppCompatActivity
         setContentView(R.layout.activity_overview);
 
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         Bundle bundle = getIntent().getExtras();
         String abc =bundle.size()+"";
         Log.d("length", abc);
@@ -98,7 +101,7 @@ public class Overview extends AppCompatActivity
         final noti allg = new noti();
         String url = "http://192.168.56.1:8000/com/default/notifications.json";
         Log.d("frag", "yeh bhi hua");
-        MyJsonRequest jobjre = new MyJsonRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        MyJsonRequest jobjre = new MyJsonRequest( url,  new Response.Listener<JSONObject>() {
    @Override
             public void onResponse(JSONObject response) {
                 String[][] star = convertfornoti(response);
@@ -132,7 +135,7 @@ public class Overview extends AppCompatActivity
         final allcomplaints allg = new allcomplaints();
         String url = "http://192.168.56.1:8000/com/complaints/list.json";
         Log.d("frag", "yeh bhi hua");
-        MyJsonRequest jobjre = new MyJsonRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 String[][] star = convertforcomplaints(response);
@@ -259,6 +262,40 @@ public class Overview extends AppCompatActivity
 
 
 
+    private String[][] convertforfilterbyhostel(JSONObject json) {
+        try {
+            JSONArray arr2 = json.getJSONArray("complaintssamelevel");
+            String[][] ret = new String[arr2.length()+1][4];
+            if((arr2.length())==0){
+                String[][] q=new String[1][1];
+                q[0][0]="No Complaints";
+                return q;
+            }
+            ret[0][0]="Complaints_id";
+            ret[0][1]="Title";
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
+
+            for (int i = 0; i < arr2.length(); i++) {
+
+                ret[i+1][0]=arr2.getJSONObject(i).getString("id");
+                ret[i+1][1]=arr2.getJSONObject(i).getString("title");
+
+                ret[i+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+1][3]=arr2.getJSONObject(i).getString("level");
+
+
+            }
+
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+    }
+
+
+
 
 
 
@@ -284,14 +321,43 @@ public class Overview extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        final FragmentManager fm = getFragmentManager();
 
-        if (id == R.id.Notification) {
-            // Handle the camera action
+        if (id == R.id.filter_by_hostel) {
+
+
+            final filterbyhostel allc = new filterbyhostel();
+            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            Log.d("frag", "yeh bhi hua");
+            MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    String[][] star = convertforfilterbyhostel(response);
+                    Fragment ret = allc.newInstance(star);
+                    fm.beginTransaction()
+                            .replace(R.id.blanklayout, ret).addToBackStack(null)
+                            .commit();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error", "yeh hua");
+                }
+            });
+
+            Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+        }
+        else{
+
         }
 
 

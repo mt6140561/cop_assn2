@@ -1,13 +1,32 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rishabh_pc.complaintsystem.noti">
+    android:background="@android:color/white"
+    tools:context="com.example.rishabh_pc.moodleplus.noti">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textAlignment="center"
+        android:id="@+id/noti"/>
 
-</FrameLayout>
+    <HorizontalScrollView
+        android:id="@+id/hsvIcons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/noti"
+        android:layout_marginTop="15dp">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/t6"
+
+            android:layout_marginTop="80dp"/>
+    </HorizontalScrollView>
+</RelativeLayout>

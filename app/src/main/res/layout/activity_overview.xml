@@ -10,10 +10,12 @@
     android:background="#ffffff">
 
     <include
-        layout="@layout/app_bar_overview"
+        layout="@layout/content_overview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
        />
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

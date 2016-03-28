@@ -1,12 +1,22 @@
 package com.example.rishabh_pc.complaintsystem;
 
+
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+
 
 
 /**
@@ -17,6 +27,7 @@ import android.view.ViewGroup;
  * Use the {@link allcomplaints#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class allcomplaints extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,22 +52,42 @@ public class allcomplaints extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment allcomplaints.
      */
+
+
+    private ArrayList<String[]> Param1;
+
     // TODO: Rename and change types and number of parameters
-    public static allcomplaints newInstance(String param1, String param2) {
+    public static allcomplaints newInstance(String[][] param) {
+
         allcomplaints fragment = new allcomplaints();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        String tag;
+        for (int i = 0; i < param.length; i++) {
+            tag = "c" + i;
+            args.putStringArray(tag, param[i]);
+        }
         fragment.setArguments(args);
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        Param1 = new ArrayList<>();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            int i = 0;
+            String tag = "c" + i;
+            while (getArguments().getStringArray(tag) != null) {
+                Param1.add(getArguments().getStringArray(tag));
+                Log.d("each", getArguments().getStringArray(tag).length + "");
+                i = i + 1;
+                tag = "c" + i;
+            }
+
         }
     }
 
@@ -64,8 +95,45 @@ public class allcomplaints extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_allcomplaints, container, false);
+        View v = inflater.inflate(R.layout.fragment_allcomplaints, container, false);
+        TableLayout table = (TableLayout) v.findViewById(R.id.table2);
+
+        TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        for (int i = 0; i < Param1.size(); i++) {
+            TableRow row = new TableRow(this.getActivity());
+            row.setLayoutParams(rowparams);
+
+
+            String[] read1 = Param1.get(i);
+
+            if (read1.length == 1) {
+                TextView tes = new TextView(this.getActivity());
+                tes.setText(read1[0]);
+                tes.setTextSize(17);
+                row.addView(tes);
+                table.addView(row);
+            } else {
+                Log.d("here", read1[0] + "      " + read1[1]);
+                for (int j = 0; j < 3; j++) {
+                    TextView tes = new TextView(this.getActivity());
+                    String addt = read1[j]+"      ";
+                    tes.setText(addt);
+                    tes.setTextSize(18);
+                    tes.setPaddingRelative(20, 0, 0, 0);
+                    row.addView(tes);
+                }
+
+
+                table.addView(row);
+
+            }
+
+        }
+        return v;
     }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -1,12 +1,19 @@
 package com.example.rishabh_pc.complaintsystem;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -27,7 +34,6 @@ public class noti extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     public noti() {
         // Required empty public constructor
@@ -36,36 +42,76 @@ public class noti extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment noti.
      */
     // TODO: Rename and change types and number of parameters
-    public static noti newInstance(String param1, String param2) {
+
+    private OnFragmentInteractionListener mListener;
+
+
+    // TODO: Rename and change types and number of parameters
+    public static noti newInstance(String[][] param) {
+
         noti fragment = new noti();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        String tag;
+        for (int i=0; i<param.length; i++) {
+            tag = "c" + i;
+            args.putStringArray(tag, param[i]);
+        }
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
+
+    private ArrayList<String[]> Param1;
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            Param1 = getArguments().getString(ARG_PARAM1);
+//
+//        }
+        Param1 = new ArrayList<>();
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            int i = 0;
+            String tag = "c" + i;
+            while (getArguments().getStringArray(tag)!=null) {
+                Param1.add(getArguments().getStringArray(tag));
+                Log.d("each", getArguments().getStringArray(tag).length + "");
+                i = i+1;
+                tag = "c" + i;
+            }
+
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_noti, container, false);
+        View v = inflater.inflate(R.layout.fragment_noti, container, false);
+        TableLayout table = (TableLayout) v.findViewById(R.id.t6);
+        FragmentManager fm = getFragmentManager();
+
+        TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        for(int i=0; i<Param1.size(); i++) {
+            TableRow row = new TableRow(this.getActivity());
+            row.setLayoutParams(rowparams);
+            TextView tes = new TextView(this.getActivity());
+            String[] read1 = Param1.get(i);
+            Log.d("here", read1[0]);
+            String cour = read1[0];
+            tes.setText(cour);
+            tes.setTextSize(20);
+            row.addView(tes);
+
+            table.addView(row);
+
+        }
+        return v;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

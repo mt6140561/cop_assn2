@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/but1"
+            android:onClick="allcomplaints"
             android:text="All complaints"
             android:textSize="18sp"
             android:layout_centerHorizontal="true"/>
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/but1"
             android:id="@+id/but2"
+            android:onClick="notif"
             android:text="Notifications"
             android:textSize="18sp"
             android:layout_centerHorizontal="true"/>

@@ -106,9 +106,16 @@ public class addcomplaint extends Fragment {
                 v = va;
                 String title = ((EditText)v.findViewById(R.id.titl)).getText().toString();
                 String descr = ((EditText)v.findViewById(R.id.descr)).getText().toString();
+                String[] arr = descr.split("\\s+");
+                String des = "";
+                for (int i=0; i<arr.length; i++) {
+                    des = des+arr[i]+"%20";
+                    Log.d("complaint", arr[i]);
+                }
+
                 String leve = level.getSelectedItem().toString().toLowerCase();
                 if (leve.equals("institute")) {leve = "insti";}
-                String url = "http://192.168.137.1:8000/com/complaints/new.json?title="+title+"&description="+descr+"&level="+leve;
+                String url = "http://192.168.137.1:8000/com/complaints/new.json?title="+title+"&description="+des+"&level="+leve;
                 Log.d("addcomp", url);
                 MyJsonRequest req = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
                     @Override

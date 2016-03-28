@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
         String url = "http://192.168.137.1:8000/com/default/login.json?userid=" + username + "&password="+ password;
         Log.d("url", url);
         final Intent intent = new Intent(this, Overview.class);
-        MyJsonRequest request = new MyJsonRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        MyJsonRequest request = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

@@ -89,6 +89,26 @@ public class allcomplaints extends Fragment {
         }
     }
 
+    public static String[][] swipe(String s[][],int n){
+        for(int i=0; i<s[n].length; i++){
+            String temp;
+            temp=s[n][i];
+            s[n][i]=s[n+1][i];
+            s[n+1][i]=temp;
+        }
+        return s;
+    }
+    public static String[][] sort(String s[][]){
+        for(int i=1; i<s.length; i++){
+            for(int j=1; j<s.length-1; j++){
+                if(Integer.parseInt(s[j][0])>Integer.parseInt(s[j+1][0])){
+                    s=swipe(s,j);
+
+                }
+            }
+        }
+        return s;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

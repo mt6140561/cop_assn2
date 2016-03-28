@@ -1,5 +1,9 @@
 package com.example.rishabh_pc.complaintsystem;
 
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
@@ -17,9 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
+
+
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -47,6 +55,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
 public class Overview extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -74,6 +83,18 @@ public class Overview extends AppCompatActivity
         uid = bundle.getString("id");
         full_name = bundle.getString("full_name");
         ((TextView)findViewById(R.id.welcome)).setText("Welcome "+full_name);
+        Button but3 = (Button) findViewById(R.id.but3);
+        final FragmentManager fm = getFragmentManager();
+
+        but3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fm.beginTransaction()
+                        .replace(R.id.blanklayout, new addcomplaint().newInstance(level, type)).addToBackStack(null)
+                        .commit();
+
+            }
+        });
     }
 
     @Override
@@ -82,15 +103,18 @@ public class Overview extends AppCompatActivity
     public void onBackPressed() {
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
+
+
         } else {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            }else{
             super.onBackPressed();
         }
-    }}
+    }
+
 
 
     public void notif(View v) {
@@ -101,8 +125,10 @@ public class Overview extends AppCompatActivity
         final noti allg = new noti();
         String url = "http://192.168.56.1:8000/com/default/notifications.json";
         Log.d("frag", "yeh bhi hua");
-        MyJsonRequest jobjre = new MyJsonRequest( url,  new Response.Listener<JSONObject>() {
-   @Override
+        MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
+            @Override
+
             public void onResponse(JSONObject response) {
                 String[][] star = convertfornoti(response);
                 Log.d("abc", star.length + "");
@@ -127,6 +153,31 @@ public class Overview extends AppCompatActivity
     }
 
 
+
+    public static String[][] swipe(String s[][],int n){
+        for(int i=0; i<s[n].length; i++){
+            String temp;
+            temp=s[n][i];
+            s[n][i]=s[n+1][i];
+            s[n+1][i]=temp;
+        }
+        return s;
+    }
+    public static String[][] sort(String s[][]){
+        for(int i=1; i<s.length; i++){
+            for(int j=1; j<s.length-1; j++){
+                if(Integer.parseInt(s[j][0])>Integer.parseInt(s[j+1][0])){
+                    s=swipe(s,j);
+
+                }
+            }
+        }
+        return s;
+    }
+
+
+
+
     public void allcomplaints(View v) {
         final FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -135,7 +186,8 @@ public class Overview extends AppCompatActivity
         final allcomplaints allg = new allcomplaints();
         String url = "http://192.168.56.1:8000/com/complaints/list.json";
         Log.d("frag", "yeh bhi hua");
-        MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>() {
+        MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
             @Override
             public void onResponse(JSONObject response) {
                 String[][] star = convertforcomplaints(response);
@@ -211,13 +263,14 @@ public class Overview extends AppCompatActivity
 
 
 
-
+ret = sort(ret);
 
             return ret;
         } catch (Exception e) {
             Log.d("Excep", e.getMessage().toString());
             return null;
         }
+
     }
 
 
@@ -287,6 +340,8 @@ public class Overview extends AppCompatActivity
 
             }
 
+            ret = sort(ret);
+
             return ret;
         } catch (Exception e) {
             Log.d("Excep", e.getMessage().toString());
@@ -294,6 +349,40 @@ public class Overview extends AppCompatActivity
         }
     }
 
+
+    private String[][] convertforfilterbyinsti(JSONObject json) {
+        try {
+            JSONArray arr2 = json.getJSONArray("complaintsinsti");
+            String[][] ret = new String[arr2.length()+1][4];
+            if((arr2.length())==0){
+                String[][] q=new String[1][1];
+                q[0][0]="No Complaints";
+                return q;
+            }
+            ret[0][0]="Complaints_id";
+            ret[0][1]="Title";
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
+
+            for (int i = 0; i < arr2.length(); i++) {
+
+                ret[i+1][0]=arr2.getJSONObject(i).getString("id");
+                ret[i+1][1]=arr2.getJSONObject(i).getString("title");
+
+                ret[i+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+1][3]=arr2.getJSONObject(i).getString("level");
+
+
+            }
+
+            ret = sort(ret);
+
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+    }
 
 
 
@@ -356,8 +445,67 @@ public class Overview extends AppCompatActivity
 
 
         }
-        else{
+        else{ if (id == R.id.filter_by_insti) {
 
+
+            final filterbyhostel allc = new filterbyhostel();
+            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            Log.d("frag", "yeh bhi hua");
+            MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    String[][] star = convertforfilterbyinsti(response);
+                    Fragment ret = allc.newInstance(star);
+                    fm.beginTransaction()
+                            .replace(R.id.blanklayout, ret).addToBackStack(null)
+                            .commit();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error", "yeh hua");
+                }
+            });
+
+            Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+        }
+else{
+            if (id == R.id.filter_by_registered) {
+
+
+                final filterbyhostel allc = new filterbyhostel();
+                String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+                Log.d("frag", "yeh bhi hua");
+                MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        String[][] star = convertforfilterbyhostel(response);
+                        Fragment ret = allc.newInstance(star);
+                        fm.beginTransaction()
+                                .replace(R.id.blanklayout, ret).addToBackStack(null)
+                                .commit();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", "yeh hua");
+                    }
+                });
+
+                Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+            }
+            else{
+
+            }
+        }
         }
 
 

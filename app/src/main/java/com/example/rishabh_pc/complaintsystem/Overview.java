@@ -124,7 +124,7 @@ public class Overview extends AppCompatActivity
 
 
         final noti allg = new noti();
-        String url = "http://192.168.56.1:8000/com/default/notifications.json";
+        String url = "http://192.168.137.1:8000/com/default/notifications.json";
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
@@ -256,7 +256,7 @@ if (aa.equals("")){
 
 
         final allcomplaints allg = new allcomplaints();
-        String url = "http://192.168.56.1:8000/com/complaints/search.json?keyword="+aa;
+        String url = "http://192.168.137.1:8000/com/complaints/search.json?keyword="+aa;
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
@@ -667,7 +667,9 @@ ret = sort(ret);
         int id = item.getItemId();
         final FragmentManager fm = getFragmentManager();
 
-        if (id == R.id.filter_by_hostel) {
+        if (id==R.id.Notification) {
+            notif(findViewById(R.id.blanklayout));
+        } else if (id == R.id.filter_by_hostel) {
 
 
             final allcomplaints allc = new allcomplaints();
@@ -678,6 +680,7 @@ ret = sort(ret);
                 public void onResponse(JSONObject response) {
 
                     String[][] star = convertforfilterbyhostel(response);
+                    Log.d("hostel", star[1].length+"");
                     Fragment ret = allc.newInstance(star);
                     fm.beginTransaction()
                             .replace(R.id.blanklayout, ret).addToBackStack(null)
@@ -706,6 +709,7 @@ ret = sort(ret);
                 public void onResponse(JSONObject response) {
 
                     String[][] star = convertforfilterbyinsti(response);
+                    Log.d("insti", star[0].length+"");
                     Fragment ret = allc.newInstance(star);
                     fm.beginTransaction()
                             .replace(R.id.blanklayout, ret).addToBackStack(null)

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -123,7 +124,7 @@ public class compldetail extends Fragment {
                     TextView tex = new TextView(this.getActivity());
                     String f = sendcom.get(i)[j];
                     tex.setText(f);
-                    tex.setTextSize(18);
+                    tex.setTextSize(22);
                     tex.setPaddingRelative(20, 0, 0, 0);
                     row.addView(tex);
 
@@ -132,6 +133,11 @@ public class compldetail extends Fragment {
                 comtable.addView(row);
             }
         }
+        Button postcomm = (Button) va.findViewById(R.id.postcomment);
+        String abc = ((TextView)va.findViewById(R.id.commtext)).getText().toString();
+        if ()
+
+
 
         return va;
 

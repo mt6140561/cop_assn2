@@ -176,7 +176,9 @@
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ompid">
+            android:layout_below="@id/ompid"
+            android:layout_marginTop="30dp"
+            android:id="@+id/comm">
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -184,6 +186,25 @@
                 ></TableLayout>
         </HorizontalScrollView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="New comment"
+            android:id="@+id/commtext"
+            android:layout_below="@id/compid"
+            android:layout_marginTop="20sp"
+            android:textSize="22dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No text in comment"
+            android:layout_below="@id/commtext"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/postcomment"
+            android:layout_below="@id/commtext"
+            android:text="Post comment"/>
 
 
 

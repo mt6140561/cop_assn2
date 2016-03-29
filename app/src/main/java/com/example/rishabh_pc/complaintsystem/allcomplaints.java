@@ -115,7 +115,7 @@ public class allcomplaints extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_allcomplaints, container, false);
         TableLayout table = (TableLayout) v.findViewById(R.id.table2);
-
+        FragmentManager fm = getFragmentManager();
         TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         for (int i = 0; i < Param1.size(); i++) {
             TableRow row = new TableRow(this.getActivity());
@@ -132,11 +132,12 @@ public class allcomplaints extends Fragment {
                 table.addView(row);
             } else {
                 Log.d("here", read1[0] + "      " + read1[1]);
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 5; j++) {
                     TextView tes = new TextView(this.getActivity());
                     String addt = read1[j]+"      ";
                     tes.setText(addt);
                     tes.setTextSize(18);
+
                     tes.setPaddingRelative(20, 0, 0, 0);
                     row.addView(tes);
                 }

@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white"
@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:text="All Complaints"
             android:textAlignment="center"
-            android:layout_marginTop="110dp"
+            android:id="@+id/qq"
+            android:layout_marginTop="70dp"
             android:textSize="50sp"
             android:textColor="@android:color/black"/>
 
@@ -33,6 +34,11 @@
             android:layout_gravity="left|top" />
 
 
+        <ScrollView
+            android:layout_below="@+id/qq"
+            android:layout_width="wrap_content"
+
+            android:layout_height="300dp">
         <HorizontalScrollView
             android:id="@+id/hsvIcons"
             android:layout_width="match_parent"
@@ -42,8 +48,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/table2"
                 android:textSize="10sp"
-                android:layout_marginTop="170dp"/>
+                android:layout_marginTop="20dp"/>
         </HorizontalScrollView>
+        </ScrollView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
@@ -54,6 +61,26 @@
             android:textSize="25sp"
 
             android:layout_gravity="left|top" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="enter complaint id"
+            android:id="@+id/comp"
+            android:layout_marginTop="460dp"
+            android:layout_centerHorizontal="true"
+
+
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="500dp"
+            android:layout_centerHorizontal="true"
+            android:text="Go"
+            android:onClick="go"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,4 +103,4 @@
 
 
     </RelativeLayout>
-</ScrollView>
+</LinearLayout>

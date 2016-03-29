@@ -106,7 +106,7 @@ public class filterbyhostel extends Fragment {
                 table.addView(row);
             } else {
                 Log.d("here", read1[0] + "      " + read1[1]);
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 5; j++) {
                     TextView tes = new TextView(this.getActivity());
                     String addt = read1[j]+"      ";
                     tes.setText(addt);

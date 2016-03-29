@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -135,7 +137,11 @@ public class compldetail extends Fragment {
         }
         Button postcomm = (Button) va.findViewById(R.id.postcomment);
         String abc = ((TextView)va.findViewById(R.id.commtext)).getText().toString();
-        if ()
+        if (abc.equals(null)) {
+            String f = "No text";
+            (TextView)va.findViewById()
+        }
+
 
 
 

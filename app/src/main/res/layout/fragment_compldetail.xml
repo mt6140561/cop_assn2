@@ -186,7 +186,7 @@
                 ></TableLayout>
         </HorizontalScrollView>
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="New comment"
@@ -198,12 +198,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No text in comment"
-            android:layout_below="@id/commtext"/>
+            android:layout_below="@id/commtext"
+            android:id="@+id/nocom"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/postcomment"
-            android:layout_below="@id/commtext"
+            android:textSize=""
+            android:layout_below="@id/nocom"
             android:text="Post comment"/>
 
 

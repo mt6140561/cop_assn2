@@ -22,30 +22,21 @@
             android:textSize="50sp"
             android:textColor="@android:color/black"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text=""
-            android:textColor="@android:color/white"
-            android:layout_marginTop="0dp"
-            android:textSize="39sp"
-
-            android:layout_gravity="left|top" />
 
 
         <ScrollView
             android:layout_below="@+id/qq"
             android:layout_width="wrap_content"
 
-            android:layout_height="300dp">
+            android:layout_height="match_parent">
         <HorizontalScrollView
             android:id="@+id/hsvIcons"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent" >
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:id="@+id/table2"
                 android:textSize="10sp"
                 android:layout_marginTop="20dp"/>
@@ -62,25 +53,7 @@
 
             android:layout_gravity="left|top" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="enter complaint id"
-            android:id="@+id/comp"
-            android:layout_marginTop="460dp"
-            android:layout_centerHorizontal="true"
 
-
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="500dp"
-            android:layout_centerHorizontal="true"
-            android:text="Go"
-            android:onClick="go"
-            />
 
         <TextView
             android:layout_width="wrap_content"

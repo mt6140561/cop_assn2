@@ -248,7 +248,9 @@ ret[4]=arr.getString("id");
     public void search(View v) {
         TextView abc =(TextView)findViewById(R.id.textView2);
        String aa = abc.getText().toString();
+if (aa.equals("")){
 
+}else{
         final FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
@@ -280,7 +282,7 @@ ret[4]=arr.getString("id");
         Singleton.getInstance().addToRequestQueue(jobjre);
 
 
-    }
+    }}
 
 
 

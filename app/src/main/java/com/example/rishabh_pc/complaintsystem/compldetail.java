@@ -78,6 +78,7 @@ public class compldetail extends Fragment {
         ((TextView)va.findViewById(R.id.compid)).setText(send.get(7));
 
         return va;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

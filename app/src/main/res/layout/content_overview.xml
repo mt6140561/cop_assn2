@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/welcome"
+        android:layout_marginTop="30dp"
         android:text="Welcome John Doe"
         android:textSize="30sp"
         android:textAlignment="center"
@@ -52,6 +53,30 @@
             android:text="New Complaint"
             android:textSize="18sp"
             android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="50sp"
+            android:text=""
+            android:layout_below="@+id/but3"
+            android:layout_marginTop="40dp"
+            android:hint="Enter Keyword to search"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:id="@+id/textView2"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:text="Search"
+            android:onClick="search"/>
+
+
     </RelativeLayout>
+
+
 
 </RelativeLayout>

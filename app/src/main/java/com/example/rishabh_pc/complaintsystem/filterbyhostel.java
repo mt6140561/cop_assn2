@@ -1,5 +1,7 @@
 package com.example.rishabh_pc.complaintsystem;
 
+
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,91 +10,120 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link compldetail.OnFragmentInteractionListener} interface
+ * {@link filterbyhostel.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link compldetail#newInstance} factory method to
+ * Use the {@link filterbyhostel#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class compldetail extends Fragment {
+public class filterbyhostel extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private ArrayList<String> send;
-    private ArrayList<String[]> mParam2;
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public compldetail() {
+    public filterbyhostel() {
         // Required empty public constructor
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-     * @return A new instance of fragment compldetail.
+     *stance of fragment filterbyhostel.
      */
     // TODO: Rename and change types and number of parameters
-    public static compldetail newInstance(ArrayList<String> send, ArrayList<String[]> comments) {
-        compldetail fragment = new compldetail();
+    public static filterbyhostel newInstance(String[][] param) {
+
+        filterbyhostel fragment = new filterbyhostel();
         Bundle args = new Bundle();
-        args.putStringArrayList(ARG_PARAM1, send);
-        String tag = "c";
-        for (int i=0; i<comments.size(); i++) {
-            tag = tag+i+"";
-            args.putStringArray(tag, comments.get(i));
-            Log.d("comments", tag);
+        String tag;
+        for (int i = 0; i < param.length; i++) {
+            tag = "c" + i;
+            args.putStringArray(tag, param[i]);
         }
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static compldetail newInstance(ArrayList<String> send) {
-        compldetail fragment = new compldetail();
-        Bundle args = new Bundle();
-        args.putStringArrayList(ARG_PARAM1, send);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private ArrayList<String[]> Param1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        Param1 = new ArrayList<>();
         if (getArguments() != null) {
-            send = getArguments().getStringArrayList(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            int i = 0;
+            String tag = "c" + i;
+            while (getArguments().getStringArray(tag) != null) {
+                Param1.add(getArguments().getStringArray(tag));
+                Log.d("each", getArguments().getStringArray(tag).length + "");
+                i = i + 1;
+                tag = "c" + i;
+            }
+
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View va = inflater.inflate(R.layout.fragment_compldetail, container, false);
-        ((TextView)va.findViewById(R.id.compby)).setText(send.get(8));
-        ((TextView)va.findViewById(R.id.complevel)).setText(send.get(1));
-        ((TextView)va.findViewById(R.id.compcre)).setText(send.get(2));
-        ((TextView)va.findViewById(R.id.comptitl)).setText(send.get(3));
-        ((TextView)va.findViewById(R.id.compresid)).setText(send.get(4));
-        ((TextView)va.findViewById(R.id.compdescr)).setText(send.get(5));
-        ((TextView)va.findViewById(R.id.compresbool)).setText(send.get(6));
-        ((TextView)va.findViewById(R.id.compid)).setText(send.get(7));
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_filterbyhostel, container, false);
+        TableLayout table = (TableLayout) v.findViewById(R.id.qwer);
 
-        return va;
+        TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        for (int i = 0; i < Param1.size(); i++) {
+            TableRow row = new TableRow(this.getActivity());
+            row.setLayoutParams(rowparams);
 
+
+            String[] read1 = Param1.get(i);
+
+            if (read1.length == 1) {
+                TextView tes = new TextView(this.getActivity());
+                tes.setText(read1[0]);
+                tes.setTextSize(17);
+                row.addView(tes);
+                table.addView(row);
+            } else {
+                Log.d("here", read1[0] + "      " + read1[1]);
+                for (int j = 0; j < 5; j++) {
+                    TextView tes = new TextView(this.getActivity());
+                    String addt = read1[j]+"      ";
+                    tes.setText(addt);
+                    tes.setTextSize(18);
+                    tes.setPaddingRelative(20, 0, 0, 0);
+                    row.addView(tes);
+                }
+
+
+                table.addView(row);
+
+            }
+
+        }
+        return v;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -117,7 +148,6 @@ public class compldetail extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 
     /**
      * This interface must be implemented by activities that contain this

@@ -52,6 +52,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -70,6 +71,9 @@ public class Overview extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         Bundle bundle = getIntent().getExtras();
         String abc =bundle.size()+"";
@@ -120,11 +124,12 @@ public class Overview extends AppCompatActivity
 
 
         final noti allg = new noti();
-        String url = "http://192.168.137.1:8000/com/default/notifications.json";
+        String url = "http://192.168.56.1:8000/com/default/notifications.json";
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
             @Override
+
             public void onResponse(JSONObject response) {
                 String[][] star = convertfornoti(response);
                 Log.d("abc", star.length + "");
@@ -149,15 +154,151 @@ public class Overview extends AppCompatActivity
     }
 
 
+
+    public static String[][] swipe(String s[][],int n){
+        for(int i=0; i<s[n].length; i++){
+            String temp;
+            temp=s[n][i];
+            s[n][i]=s[n+1][i];
+            s[n+1][i]=temp;
+        }
+        return s;
+    }
+    public static String[][] sort(String s[][]){
+        for(int i=1; i<s.length; i++){
+            for(int j=1; j<s.length-1; j++){
+                if(Integer.parseInt(s[j][4])<Integer.parseInt(s[j+1][4])){
+                    s=swipe(s,j);
+
+                }
+            }
+        }
+        return s;
+    }
+
+//
+//public void particular(String a){
+//    final FragmentManager fm = getFragmentManager();
+//    FragmentTransaction ft = fm.beginTransaction();
+//
+//
+//    final particularcomplaint allg = new particularcomplaint();
+//    String url = "http://192.168.56.1:8000/com/complaints/complaint.json/"+a;
+//    Log.d("frag", "yeh bhi hua");
+//    MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+//
+//        @Override
+//
+//        public void onResponse(JSONObject response) {
+//            String[] star = converttoparticular(response);
+//            Log.d("abc", star.length + "");
+//            Fragment ret = allg.newInstance(star);
+//
+//
+//            fm.beginTransaction()
+//                    .replace(R.id.blanklayout, ret).addToBackStack(null)
+//                    .commit();
+//
+//        }
+//    }, new Response.ErrorListener() {
+//        @Override
+//        public void onErrorResponse(VolleyError error) {
+//            Log.d("error", "yeh hua");
+//        }
+//    });
+//
+//    Singleton.getInstance().addToRequestQueue(jobjre);
+//
+//
+//}
+//
+
+//
+//    public void go(View v){
+//
+//        FragmentManager fm = getFragmentManager();
+//
+////if you added fragment via layout xml
+//
+//        TextView te = (TextView)findViewById(R.id.comp);
+//        String abc= te.getText().toString();
+//        String qq=abc;
+//
+//        particular(qq);
+//
+//
+//    }
+//
+
+
+    private String[] converttoparticular(JSONObject json) {
+        try {
+            JSONObject arr = json.getJSONObject("complaint");
+            String[] ret = new String[5];
+
+ret[0]= arr.getString("statement");
+ret[4]=arr.getString("id");
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+    }
+
+    public void search(View v) {
+        TextView abc =(TextView)findViewById(R.id.textView2);
+       String aa = abc.getText().toString();
+if (aa.equals("")){
+
+}else{
+        final FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+
+        final allcomplaints allg = new allcomplaints();
+        String url = "http://192.168.56.1:8000/com/complaints/search.json?keyword="+aa;
+        Log.d("frag", "yeh bhi hua");
+        MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                String[][] star = convertforsearch(response);
+                Log.d("abc", star.length + "");
+                Fragment ret = allg.newInstance(star);
+
+
+                fm.beginTransaction()
+                        .replace(R.id.blanklayout, ret).addToBackStack(null)
+                        .commit();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", "yeh hua");
+            }
+        });
+
+        Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+    }}
+
+
+
+
+
+
     public void allcomplaints(View v) {
         final FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
 
         final allcomplaints allg = new allcomplaints();
-        String url = "http://192.168.137.1:8000/com/complaints/list.json";
+        String url = "http://192.168.56.1:8000/com/complaints/list.json";
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
             @Override
             public void onResponse(JSONObject response) {
                 String[][] star = convertforcomplaints(response);
@@ -183,58 +324,138 @@ public class Overview extends AppCompatActivity
     }
 
 
-    private String[][] convertforcomplaints(JSONObject json) {
+
+
+    private String[][] convertforsearch(JSONObject json) {
         try {
             JSONArray arr1 = json.getJSONArray("complaintsinsti");
             JSONArray arr2 = json.getJSONArray("complaintssamelevel");
             JSONArray arr3 = json.getJSONArray("complaintsself");
-            String[][] ret = new String[arr1.length()+arr2.length()+arr3.length()+1][4];
+            String[][] ret = new String[arr1.length()+arr2.length()+arr3.length()+1][5];
             if((arr1.length()+arr2.length()+arr3.length())==0){
                 String[][] q=new String[1][1];
                 q[0][0]="No Complaints";
                 return q;
             }
-            ret[0][0]="Complaints_id";
+            ret[0][0]="Serial No.";
+            ret[0][4]="Complaint_id";
             ret[0][1]="Title";
+
             ret[0][2]="Resolved";
             ret[0][3]="Level";
+
             for (int i = 1; i < arr1.length()+1; i++) {
 
-                ret[i][0]=arr1.getJSONObject(i-1).getString("id");
                 ret[i][1]=arr1.getJSONObject(i-1).getString("title");
 
                 ret[i][2]=arr1.getJSONObject(i-1).getString("resolve_bool");
                 ret[i][3]=arr1.getJSONObject(i-1).getString("level");
+                ret[i][4]=arr1.getJSONObject(i-1).getString("id");
 
             }
 
             for (int i = 0; i < arr2.length(); i++) {
 
-                ret[i+arr1.length()+1][0]=arr2.getJSONObject(i).getString("id");
                 ret[i+arr1.length()+1][1]=arr2.getJSONObject(i).getString("title");
 
                 ret[i+arr1.length()+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
                 ret[i+arr1.length()+1][3]=arr2.getJSONObject(i).getString("level");
+                ret[i+arr1.length()+1][4]=arr2.getJSONObject(i).getString("id");
 
 
             }
 
             for (int i = 0; i < arr3.length(); i++) {
 
-                ret[i+arr1.length()+1+ arr2.length()][0]=arr3.getJSONObject(i).getString("id");
                 ret[i+arr1.length()+1+ arr2.length()][1]=arr3.getJSONObject(i).getString("title");
 
                 ret[i+arr1.length()+1+ arr2.length()][2]=arr3.getJSONObject(i).getString("resolve_bool");
 
                 ret[i+arr1.length()+1+ arr2.length()][3]=arr3.getJSONObject(i).getString("level");
+                ret[i+arr1.length()+1+ arr2.length()][4]=arr3.getJSONObject(i).getString("id");
 
 
             }
 
 
 
+            ret = sort(ret);
 
 
+            for(int i=1;i<ret.length;i++){
+                ret[i][0]=i+"";
+            }
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+
+    }
+
+
+
+
+
+    private String[][] convertforcomplaints(JSONObject json) {
+        try {
+            JSONArray arr1 = json.getJSONArray("complaintsinsti");
+            JSONArray arr2 = json.getJSONArray("complaintssamelevel");
+            JSONArray arr3 = json.getJSONArray("complaintsself");
+            String[][] ret = new String[arr1.length()+arr2.length()+arr3.length()+1][5];
+            if((arr1.length()+arr2.length()+arr3.length())==0){
+                String[][] q=new String[1][1];
+                q[0][0]="No Complaints";
+                return q;
+            }
+            ret[0][0]="Serial No.";
+            ret[0][4]="Complaint_id";
+            ret[0][1]="Title";
+
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
+
+            for (int i = 1; i < arr1.length()+1; i++) {
+
+                ret[i][1]=arr1.getJSONObject(i-1).getString("title");
+
+                ret[i][2]=arr1.getJSONObject(i-1).getString("resolve_bool");
+                ret[i][3]=arr1.getJSONObject(i-1).getString("level");
+                ret[i][4]=arr1.getJSONObject(i-1).getString("id");
+
+            }
+
+            for (int i = 0; i < arr2.length(); i++) {
+
+                ret[i+arr1.length()+1][1]=arr2.getJSONObject(i).getString("title");
+
+                ret[i+arr1.length()+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+arr1.length()+1][3]=arr2.getJSONObject(i).getString("level");
+                ret[i+arr1.length()+1][4]=arr2.getJSONObject(i).getString("id");
+
+
+            }
+
+            for (int i = 0; i < arr3.length(); i++) {
+
+                ret[i+arr1.length()+1+ arr2.length()][1]=arr3.getJSONObject(i).getString("title");
+
+                ret[i+arr1.length()+1+ arr2.length()][2]=arr3.getJSONObject(i).getString("resolve_bool");
+
+                ret[i+arr1.length()+1+ arr2.length()][3]=arr3.getJSONObject(i).getString("level");
+                ret[i+arr1.length()+1+ arr2.length()][4]=arr3.getJSONObject(i).getString("id");
+
+
+            }
+
+
+
+ret = sort(ret);
+
+
+            for(int i=1;i<ret.length;i++){
+                ret[i][0]=i+"";
+            }
             return ret;
         } catch (Exception e) {
             Log.d("Excep", e.getMessage().toString());
@@ -285,6 +506,135 @@ public class Overview extends AppCompatActivity
 
 
 
+    private String[][] convertforfilterbyhostel(JSONObject json) {
+        try {
+            JSONArray arr2 = json.getJSONArray("complaintssamelevel");
+            String[][] ret = new String[arr2.length()+1][5];
+            if((arr2.length())==0){
+                String[][] q=new String[1][1];
+                q[0][0]="No Complaints";
+                return q;
+            }
+            ret[0][0]="Serial no.";
+            ret[0][1]="Title";
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
+            ret[0][4]="Complaints_id";
+
+            for (int i = 0; i < arr2.length(); i++) {
+
+
+                ret[i+1][1]=arr2.getJSONObject(i).getString("title");
+
+                ret[i+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+1][3]=arr2.getJSONObject(i).getString("level");
+                ret[i+1][4]=arr2.getJSONObject(i).getString("id");
+
+
+
+            }
+
+            ret = sort(ret);
+
+            for(int i=1;i<ret.length;i++){
+                ret[i][0]=i+"";
+            }
+
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+    }
+
+
+    private String[][] convertforfilterbyinsti(JSONObject json) {
+        try {
+            JSONArray arr2 = json.getJSONArray("complaintsinsti");
+            String[][] ret = new String[arr2.length()+1][5];
+            if((arr2.length())==0){
+                String[][] q=new String[1][1];
+                q[0][0]="No Complaints";
+                return q;
+            }
+            ret[0][0]="Serial No.";
+            ret[0][1]="Title";
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
+            ret[0][4]="Complaints_id";
+
+            for (int i = 0; i < arr2.length(); i++) {
+
+
+                ret[i+1][1]=arr2.getJSONObject(i).getString("title");
+
+                ret[i+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+1][3]=arr2.getJSONObject(i).getString("level");
+                ret[i+1][4]=arr2.getJSONObject(i).getString("id");
+
+            }
+
+
+
+            ret = sort(ret);
+
+            for(int i=1;i<ret.length;i++){
+                ret[i][0]=i+"";
+            }
+
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+    }
+
+
+
+
+    private String[][] convertforfilterbyregistered(JSONObject json) {
+        try {
+            JSONArray arr2 = json.getJSONArray("complaintsself");
+            String[][] ret = new String[arr2.length()+1][5];
+            if((arr2.length())==0){
+                String[][] q=new String[1][1];
+                q[0][0]="No Complaints";
+                return q;
+            }
+
+
+            ret[0][0]="Serial No.";
+            ret[0][1]="Title";
+            ret[0][2]="Resolved";
+            ret[0][3]="Level";
+            ret[0][4]="Complaints_id";
+
+            for (int i = 0; i < arr2.length(); i++) {
+
+                ret[i+1][1]=arr2.getJSONObject(i).getString("title");
+
+                ret[i+1][2]=arr2.getJSONObject(i).getString("resolve_bool");
+                ret[i+1][3]=arr2.getJSONObject(i).getString("level");
+                ret[i+1][4]=arr2.getJSONObject(i).getString("id");
+
+
+            }
+
+
+            for(int i=1;i<ret.length;i++){
+                ret[i][0]=i+"";
+            }
+
+
+            ret = sort(ret);
+
+            return ret;
+        } catch (Exception e) {
+            Log.d("Excep", e.getMessage().toString());
+            return null;
+        }
+    }
+
 
 
 
@@ -310,14 +660,102 @@ public class Overview extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        final FragmentManager fm = getFragmentManager();
 
-        if (id == R.id.Notification) {
-            // Handle the camera action
+        if (id == R.id.filter_by_hostel) {
+
+
+            final allcomplaints allc = new allcomplaints();
+            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            Log.d("frag", "yeh bhi hua");
+            MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    String[][] star = convertforfilterbyhostel(response);
+                    Fragment ret = allc.newInstance(star);
+                    fm.beginTransaction()
+                            .replace(R.id.blanklayout, ret).addToBackStack(null)
+                            .commit();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error", "yeh hua");
+                }
+            });
+
+            Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+        }
+        else{ if (id == R.id.filter_by_insti) {
+
+
+            final allcomplaints allc = new allcomplaints();
+            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            Log.d("frag", "yeh bhi hua");
+            MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    String[][] star = convertforfilterbyinsti(response);
+                    Fragment ret = allc.newInstance(star);
+                    fm.beginTransaction()
+                            .replace(R.id.blanklayout, ret).addToBackStack(null)
+                            .commit();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error", "yeh hua");
+                }
+            });
+
+            Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+        }
+else{
+            if (id == R.id.filter_by_registered) {
+
+
+                final allcomplaints allc = new allcomplaints();
+                String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+                Log.d("frag", "yeh bhi hua");
+                MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        String[][] star = convertforfilterbyregistered(response);
+                        Fragment ret = allc.newInstance(star);
+                        fm.beginTransaction()
+                                .replace(R.id.blanklayout, ret).addToBackStack(null)
+                                .commit();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("error", "yeh hua");
+                    }
+                });
+
+                Singleton.getInstance().addToRequestQueue(jobjre);
+
+
+            }
+            else{
+
+            }
+        }
         }
 
 

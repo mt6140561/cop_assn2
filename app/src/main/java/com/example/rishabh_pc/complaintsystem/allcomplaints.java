@@ -94,13 +94,33 @@ public class allcomplaints extends Fragment {
         }
     }
 
+    public static String[][] swipe(String s[][],int n){
+        for(int i=0; i<s[n].length; i++){
+            String temp;
+            temp=s[n][i];
+            s[n][i]=s[n+1][i];
+            s[n+1][i]=temp;
+        }
+        return s;
+    }
+    public static String[][] sort(String s[][]){
+        for(int i=1; i<s.length; i++){
+            for(int j=1; j<s.length-1; j++){
+                if(Integer.parseInt(s[j][0])>Integer.parseInt(s[j+1][0])){
+                    s=swipe(s,j);
+
+                }
+            }
+        }
+        return s;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_allcomplaints, container, false);
         TableLayout table = (TableLayout) v.findViewById(R.id.table2);
-
+        FragmentManager fm = getFragmentManager();
         TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         for (int i = 0; i < Param1.size(); i++) {
             TableRow row = new TableRow(this.getActivity());
@@ -118,11 +138,12 @@ public class allcomplaints extends Fragment {
                 table.addView(row);
             } else {
                 Log.d("here", read1[0] + "      " + read1[1]);
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 5; j++) {
                     TextView tes = new TextView(this.getActivity());
                     String addt = read1[j]+"      ";
                     tes.setText(addt);
                     tes.setTextSize(18);
+
                     tes.setPaddingRelative(20, 0, 0, 0);
                     row.addView(tes);
                 }

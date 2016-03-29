@@ -115,7 +115,7 @@ public class addcomplaint extends Fragment {
 
                 String leve = level.getSelectedItem().toString().toLowerCase();
                 if (leve.equals("institute")) {leve = "insti";}
-                String url = "http://192.168.137.1:8000/com/complaints/new.json?title="+title+"&description="+des+"&level="+leve;
+                String url = "http://192.168.56.1:8000/com/complaints/new.json?title="+title+"&description="+des+"&level="+leve;
                 Log.d("addcomp", url);
                 MyJsonRequest req = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
                     @Override

@@ -95,19 +95,25 @@ public class noti extends Fragment {
         FragmentManager fm = getFragmentManager();
 
         TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
-        for(int i=0; i<Param1.size(); i++) {
-            TableRow row = new TableRow(this.getActivity());
-            row.setLayoutParams(rowparams);
+        if (Param1.size()==1) {
             TextView tes = new TextView(this.getActivity());
-            String[] read1 = Param1.get(i);
-            Log.d("here", read1[0]);
-            String cour = read1[0];
-            tes.setText(cour);
-            tes.setTextSize(20);
-            row.addView(tes);
+            String e = "No new notification";
+            tes.setText(e);
+        } else {
+            for (int i = 0; i < Param1.size(); i++) {
+                TableRow row = new TableRow(this.getActivity());
+                row.setLayoutParams(rowparams);
+                TextView tes = new TextView(this.getActivity());
+                String[] read1 = Param1.get(i);
+                Log.d("here", read1[0]);
+                String cour = read1[0];
+                tes.setText(cour);
+                tes.setTextSize(20);
+                row.addView(tes);
+                row.setOnClickListener(new complainOnClick(read1[1], getFragmentManager()));
+                table.addView(row);
 
-            table.addView(row);
-
+            }
         }
         return v;
     }

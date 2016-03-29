@@ -252,7 +252,7 @@ public class Overview extends AppCompatActivity
     private String[][] convertfornoti(JSONObject json) {
         try {
             JSONArray arr = json.getJSONArray("notifications");
-            String[][] ret = new String[arr.length()][1];
+            String[][] ret = new String[arr.length()][2];
             if(arr.length()==0){
                 String[][] q=new String[1][1];
                 q[0][0]="No new Notification";
@@ -266,7 +266,7 @@ public class Overview extends AppCompatActivity
 
 
 
-
+                ret[i][1]=arr.getJSONObject(i).getString("complaint_id");
                     if(xx.equals("0")){
                 ret[i][0]= arr.getJSONObject(i).getString("created_at")+"   New Complaint posted   ";}
                 else {

@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
     public void login(View view) {
         String username = ((TextView) findViewById(R.id.usnm)).getText().toString();
         String password = ((TextView) findViewById(R.id.pass)).getText().toString();
-        String url = "http://192.168.56.1:8000/com/default/login.json?userid=" + username + "&password="+ password;
+        String url = "http://192.168.137.1:8000/com/default/login.json?userid=" + username + "&password="+ password;
         Log.d("url", url);
         final Intent intent = new Intent(this, Overview.class);
         MyJsonRequest request = new MyJsonRequest(url, new Response.Listener<JSONObject>() {

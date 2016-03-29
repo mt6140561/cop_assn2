@@ -24,7 +24,7 @@ public class complainOnClick implements View.OnClickListener {
     }
 
     public void onClick(View v) {
-        String url = "http://192.168.56.1:8000/com/complaints/complaint.json/"+cid;
+        String url = "http://192.168.137.1:8000/com/complaints/complaint.json/"+cid;
         Log.d("complainOnClick", "worked");
         MyJsonRequest req = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
             @Override
@@ -40,47 +40,30 @@ public class complainOnClick implements View.OnClickListener {
                     send.add(json.getString("statement"));
                     send.add(json.getString("resolve_bool"));
                     send.add(json.getString("id"));
-                    JSONArray comments = response.getJSONArray("comments");
-                    final ArrayList<String[]> comment = new ArrayList<>();
-                    for (int i=0; i<comments.length(); i++) {
-                        final String[] arr = new String[3];
-                        String uid = comments.getJSONObject(i).getString("user_id");
-                        String urlu = "http://192.168.137.1:8000/com/user/user.json/"+uid;
-                        Log.d("Userinfo", urlu);
-                        MyJsonRequest requ = new MyJsonRequest(urlu, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    arr[0] = response.getString("full_name");
+                    final JSONArray comments = response.getJSONArray("comments");
 
-                                    } catch (Exception e) {}
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
 
-                            }
-                        });
-
-                        Singleton.getInstance().addToRequestQueue(requ);
-                        Log.d("commuser", arr[0]);
-                        arr[1] = comments.getJSONObject(i).getString("text");
-                        arr[2] = comments.getJSONObject(i).getString("created_at");
-                        comment.add(arr);
-                    }
                     String url2 = "http://192.168.137.1:8000/com/user/user.json/"+json.getString("user_id");
                     Log.d("Userinfo", url2);
                     MyJsonRequest req1 = new MyJsonRequest(url2, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                ArrayList<String[]> sendcom = new ArrayList<String[]>();
+                                for (int i=0; i<comments.length(); i++) {
+                                    String[] comarr = new String[3];
+                                    comarr[0] = comments.getJSONObject(i).getString("full_id");
+                                    comarr[1] = comments.getJSONObject(i).getString("text");
+                                    comarr[2] = comments.getJSONObject(i).getString("created_at");
+                                    sendcom.add(comarr);
+                                }
                                 JSONObject userinfo = response.getJSONObject("user");
                                 send.add(userinfo.getString("full_name"));
-                                Log.d("send size", send.size()+"");
+                                Log.d("send size chu", send.size()+"");
                                 fm.beginTransaction()
-                                        .replace(R.id.blanklayout, new compldetail().newInstance(send,comment)).addToBackStack(null)
+                                        .replace(R.id.blanklayout, new compldetail().newInstance(send, sendcom)).addToBackStack(null)
                                         .commit();
-                            } catch (Exception e) {}
+                            } catch (Exception e) {Log.d("exception userinfo", e.getMessage().toString());}
                         }
                     }, new Response.ErrorListener() {
                         @Override

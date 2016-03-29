@@ -295,7 +295,7 @@ if (aa.equals("")){
 
 
         final allcomplaints allg = new allcomplaints();
-        String url = "http://192.168.56.1:8000/com/complaints/list.json";
+        String url = "http://192.168.137.1:8000/com/complaints/list.json";
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
@@ -671,7 +671,7 @@ ret = sort(ret);
 
 
             final allcomplaints allc = new allcomplaints();
-            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            String url = "http://192.168.137.1:8000/com/complaints/listt.json";
             Log.d("frag", "yeh bhi hua");
             MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
                 @Override
@@ -699,7 +699,7 @@ ret = sort(ret);
 
 
             final allcomplaints allc = new allcomplaints();
-            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            String url = "http://192.168.137.1:8000/com/complaints/listt.json";
             Log.d("frag", "yeh bhi hua");
             MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
                 @Override
@@ -723,12 +723,12 @@ ret = sort(ret);
 
 
         }
-else{
+        else{
             if (id == R.id.filter_by_registered) {
 
 
                 final allcomplaints allc = new allcomplaints();
-                String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+                String url = "http://192.168.137.1:8000/com/complaints/listt.json";
                 Log.d("frag", "yeh bhi hua");
                 MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
                     @Override
@@ -763,4 +763,7 @@ else{
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

@@ -6,8 +6,6 @@
 
 
 
-    <ScrollView android:layout_height="match_parent"
-        android:layout_width="match_parent">
 
 
     <RelativeLayout android:layout_height="match_parent"
@@ -119,7 +117,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/compresid"
         android:text="Resid"
-            android:layout_marginLeft="200dp"
+        android:layout_marginLeft="200dp"
         android:textSize="20sp"
         android:layout_below="@id/complevel"
         />
@@ -163,7 +161,7 @@
             android:id="@+id/compid"
             android:text="comp id"
             android:textSize="20sp"
- android:layout_marginLeft="200dp"
+            android:layout_marginLeft="200dp"
             android:layout_below="@id/compresbool"/>
 
 
@@ -175,6 +173,17 @@
             android:textSize="20sp"
             android:layout_below="@id/compresbool"/>
 
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ompid">
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/commentable"
+                ></TableLayout>
+        </HorizontalScrollView>
+
 
 
 
@@ -182,4 +191,3 @@
 
 </ScrollView>
 
-</ScrollView>

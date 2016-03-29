@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class compldetail extends Fragment {
 
     // TODO: Rename and change types of parameters
     private ArrayList<String> send;
-    private ArrayList<String[]> mParam2;
+    private ArrayList<String[]> sendcom = new ArrayList<String[]>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,9 +52,9 @@ public class compldetail extends Fragment {
         compldetail fragment = new compldetail();
         Bundle args = new Bundle();
         args.putStringArrayList(ARG_PARAM1, send);
-        String tag = "c";
+        String tag;
         for (int i=0; i<comments.size(); i++) {
-            tag = tag+i+"";
+            tag = "c"+i;
             args.putStringArray(tag, comments.get(i));
             Log.d("comments", tag);
         }
@@ -60,19 +62,28 @@ public class compldetail extends Fragment {
         return fragment;
     }
 
-    public static compldetail newInstance(ArrayList<String> send) {
-        compldetail fragment = new compldetail();
-        Bundle args = new Bundle();
-        args.putStringArrayList(ARG_PARAM1, send);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static compldetail newInstance(ArrayList<String> send, ArrayList<String[]> sendcom) {
+//        compldetail fragment = new compldetail();
+//        Bundle args = new Bundle();
+//        args.putStringArrayList(ARG_PARAM1, send);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             send = getArguments().getStringArrayList(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
+            String tag = "c0";
+            int i = 0;
+            while (getArguments().getStringArray(tag) != null) {
+
+                sendcom.add(getArguments().getStringArray(tag));
+
+                i = i+1;
+                tag = "c" + i;
+            }
+
         }
     }
 
@@ -89,6 +100,38 @@ public class compldetail extends Fragment {
         ((TextView)va.findViewById(R.id.compdescr)).setText(send.get(5));
         ((TextView)va.findViewById(R.id.compresbool)).setText(send.get(6));
         ((TextView)va.findViewById(R.id.compid)).setText(send.get(7));
+        TableLayout comtable = (TableLayout) va.findViewById(R.id.commentable);
+        TableRow.LayoutParams rowparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        if (sendcom.isEmpty()) {
+            TableRow row = new TableRow(this.getActivity());
+            row.setLayoutParams(rowparams);
+            TextView tex = new TextView(this.getActivity());
+            String f = "No comments";
+            tex.setText(f);
+            tex.setTextSize(18);
+            tex.setPaddingRelative(20, 0, 0, 0);
+            row.addView(tex);
+            comtable.addView(row);
+        } else {
+
+            for (int i = 0; i < sendcom.size(); i++) {
+                TableRow row = new TableRow(this.getActivity());
+                row.setLayoutParams(rowparams);
+                Log.d("commenttablerow", i+"");
+
+                for (int j = 0; j < sendcom.get(i).length; j++) {
+                    TextView tex = new TextView(this.getActivity());
+                    String f = sendcom.get(i)[j];
+                    tex.setText(f);
+                    tex.setTextSize(18);
+                    tex.setPaddingRelative(20, 0, 0, 0);
+                    row.addView(tex);
+
+
+                }
+                comtable.addView(row);
+            }
+        }
 
         return va;
 

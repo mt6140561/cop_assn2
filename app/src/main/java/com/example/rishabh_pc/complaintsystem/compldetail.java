@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class compldetail extends Fragment {
 
     // TODO: Rename and change types of parameters
     private ArrayList<String> send;
-    private String mParam2;
+    private ArrayList<String[]> mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,15 +46,27 @@ public class compldetail extends Fragment {
      * @return A new instance of fragment compldetail.
      */
     // TODO: Rename and change types and number of parameters
-    public static compldetail newInstance(ArrayList<String> send) {
+    public static compldetail newInstance(ArrayList<String> send, ArrayList<String[]> comments) {
         compldetail fragment = new compldetail();
         Bundle args = new Bundle();
         args.putStringArrayList(ARG_PARAM1, send);
-//        args.putString(ARG_PARAM2, param2);
+        String tag = "c";
+        for (int i=0; i<comments.size(); i++) {
+            tag = tag+i+"";
+            args.putStringArray(tag, comments.get(i));
+            Log.d("comments", tag);
+        }
         fragment.setArguments(args);
         return fragment;
     }
 
+    public static compldetail newInstance(ArrayList<String> send) {
+        compldetail fragment = new compldetail();
+        Bundle args = new Bundle();
+        args.putStringArrayList(ARG_PARAM1, send);
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +81,7 @@ public class compldetail extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View va = inflater.inflate(R.layout.fragment_compldetail, container, false);
-        ((TextView)va.findViewById(R.id.compby)).setText(send.get(0));
+        ((TextView)va.findViewById(R.id.compby)).setText(send.get(8));
         ((TextView)va.findViewById(R.id.complevel)).setText(send.get(1));
         ((TextView)va.findViewById(R.id.compcre)).setText(send.get(2));
         ((TextView)va.findViewById(R.id.comptitl)).setText(send.get(3));

@@ -16,6 +16,8 @@
             android:id="@+id/filter_by_registered"
             android:title="Registered complaints" />
     </group>
-
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
 
 </menu>

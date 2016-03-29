@@ -117,7 +117,6 @@ public class Overview extends AppCompatActivity
     }
 
 
-
     public void notif(View v) {
         final FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -183,7 +182,7 @@ public class Overview extends AppCompatActivity
 //
 //
 //    final particularcomplaint allg = new particularcomplaint();
-//    String url = "http://192.168.56.1:8000/com/complaints/complaint.json/"+a;
+//    String url = "http://192.168.137.1:8000/com/complaints/complaint.json/"+a;
 //    Log.d("frag", "yeh bhi hua");
 //    MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 //
@@ -283,8 +282,6 @@ if (aa.equals("")){
 
 
     }}
-
-
 
 
 
@@ -756,7 +753,7 @@ ret = sort(ret);
 
 
             }
-            else{
+            else if (id==R.id.logout){
 
             }
         }

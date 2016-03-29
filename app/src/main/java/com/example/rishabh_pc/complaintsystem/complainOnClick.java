@@ -31,6 +31,13 @@ public class complainOnClick implements View.OnClickListener {
             public void onResponse(JSONObject response) {
                 try {
                     JSONObject json = response.getJSONObject("complaint");
+
+
+                    String noofupvotes = response.getString("upvotes");
+                    String noofdownvotes = response.getString("downvotes");
+                    String upvo = response.getString("upvoted");
+                    String downvo = response.getString("downvoted");
+
                     final ArrayList<String> send = new ArrayList<String>();
                     send.add(json.getString("user_id"));
                     send.add(json.getString("level"));
@@ -40,6 +47,12 @@ public class complainOnClick implements View.OnClickListener {
                     send.add(json.getString("statement"));
                     send.add(json.getString("resolve_bool"));
                     send.add(json.getString("id"));
+
+                    send.add(noofupvotes);
+                    send.add(noofdownvotes);
+                    send.add(upvo);
+                    send.add(downvo);
+
                     final JSONArray comments = response.getJSONArray("comments");
 
 

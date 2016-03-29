@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+
+<ScrollView android:background="#ffffff"
+    tools:context="com.example.rishabh_pc.complaintsystem.compldetail"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+
+
+
+    <RelativeLayout android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/titl1"
+            android:text="Title"
+            android:layout_centerHorizontal="true"
+            android:textSize="40sp"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/comptitl1"
+            android:layout_below="@+id/titl1"
+            android:text="Title"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compcre1"
+            android:text="created_at"
+            android:textSize="20sp"
+            android:layout_below="@id/comptitl1"
+            android:layout_marginLeft="120dp"
+            />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/cre1"
+            android:text="Created_at :"
+            android:textSize="20sp"
+            android:layout_below="@id/comptitl1"
+            android:layout_marginLeft="0dp"
+            />
+
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/descr1"
+            android:text="Description"
+            android:textSize="40sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/comptitl1"
+            android:layout_marginTop="30sp"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compdescr1"
+            android:text="Description"
+            android:textSize="20sp"
+            android:layout_below="@id/descr1"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compby1"
+            android:text="Complaint by"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compdescr1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/by1"
+            android:text="Complaint by :"
+            android:textSize="20sp"
+            android:layout_below="@id/compdescr1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/complevel1"
+            android:text="level"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compby1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/level1"
+            android:text="Complaint level :"
+            android:textSize="20sp"
+            android:layout_below="@id/compby1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compresid1"
+            android:text="Resid"
+            android:layout_marginLeft="200dp"
+            android:textSize="20sp"
+            android:layout_below="@id/complevel1"
+            />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/resid1"
+            android:text="Resolve Id :"
+            android:textSize="20sp"
+            android:layout_below="@id/level1"
+
+
+            />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compresbool1"
+            android:text="complbool"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compresid1"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/resbool1"
+            android:text="Resolved or not :"
+
+            android:textSize="20sp"
+            android:layout_below="@id/compresid1"/>
+
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compid1"
+            android:text="comp id"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compresbool1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/ompid1"
+            android:text="Complaint id :"
+            android:textSize="20sp"
+            android:layout_below="@id/compresbool1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upvote"
+            android:id="@+id/upvote1"
+            android:onClick="upvote"
+            android:layout_below="@+id/compid1"
+             />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Downvote"
+            android:id="@+id/downvote1"
+            android:layout_below="@+id/compid1"
+            android:onClick="downvote"
+            android:layout_marginLeft="280dp"
+             />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/upvotestatus1"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_below="@id/upvote1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/downvotestatus1"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_below="@id/downvote1"
+            android:layout_alignParentRight="true"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>

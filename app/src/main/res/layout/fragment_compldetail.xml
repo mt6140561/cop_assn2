@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 
-    <ScrollView android:background="#ffffff" tools:context="com.example.rishabh_pc.complaintsystem.compldetail" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:background="#ffffff"
+    tools:context="com.example.rishabh_pc.complaintsystem.compldetail"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -173,16 +178,73 @@
             android:textSize="20sp"
             android:layout_below="@id/compresbool"/>
 
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/status"
+            android:text="Status :"
+            android:textSize="20sp"
+            android:layout_below="@id/compid"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compstatus"
+            android:text="Status :"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compid"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upvote"
+            android:id="@+id/upvote"
+            android:onClick="upvote"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/compstatus"
+        />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Downvote"
+            android:id="@+id/downvote"
+            android:layout_below="@+id/compstatus"
+            android:onClick="downvote"
+            android:layout_marginLeft="270dp"
+
+        />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resolve"
+            android:id="@+id/resolve"
+            android:layout_below="@+id/compstatus"
+            android:onClick="resolve"
+            android:layout_centerHorizontal="true"
+
+
+            />
+
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ompid"
+            android:layout_below="@id/downvote"
             android:layout_marginTop="30dp"
-            android:id="@+id/comm">
+            android:id="@+id/comm"
+            >
             <TableLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/commentable"
+
                 ></TableLayout>
         </HorizontalScrollView>
 
@@ -191,26 +253,24 @@
             android:layout_height="wrap_content"
             android:hint="New comment"
             android:id="@+id/commtext"
-            android:layout_below="@id/compid"
+            android:layout_below="@id/comm"
             android:layout_marginTop="20sp"
             android:textSize="22dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No text in comment"
+            android:textSize="20sp"
             android:layout_below="@id/commtext"
-            android:id="@+id/nocom"/>
+            android:id="@+id/nocom"
+            android:visibility="gone"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/postcomment"
-            android:textSize=""
             android:layout_below="@id/nocom"
             android:text="Post comment"/>
-
-
 
     </RelativeLayout>
 
 </ScrollView>
-

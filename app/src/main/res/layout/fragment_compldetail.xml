@@ -252,7 +252,8 @@
             android:layout_height="wrap_content"
             android:hint="New comment"
             android:id="@+id/commtext"
-            android:layout_below="@id/downvote"
+
+            android:layout_below="@id/comm"
             android:layout_marginTop="20sp"
             android:textSize="22dp"/>
         <TextView

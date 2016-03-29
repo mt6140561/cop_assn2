@@ -126,7 +126,7 @@ public class allcomplaints extends Fragment {
             TableRow row = new TableRow(this.getActivity());
             row.setLayoutParams(rowparams);
 //            final String cid = Param1.get(i)[0];
-            row.setOnClickListener(new complainOnClick(Param1.get(i)[4], getFragmentManager()));
+
 
             String[] read1 = Param1.get(i);
 
@@ -137,7 +137,7 @@ public class allcomplaints extends Fragment {
                 row.addView(tes);
                 table.addView(row);
             } else {
-                Log.d("here", read1[0] + "      " + read1[1]);
+                row.setOnClickListener(new complainOnClick(Param1.get(i)[4], getFragmentManager()));
                 for (int j = 0; j < 5; j++) {
                     TextView tes = new TextView(this.getActivity());
                     String addt = read1[j]+"      ";

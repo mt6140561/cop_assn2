@@ -7,6 +7,7 @@ import android.view.View;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -30,11 +31,14 @@ public class complainOnClick implements View.OnClickListener {
             public void onResponse(JSONObject response) {
                 try {
                     JSONObject json = response.getJSONObject("complaint");
-                    ArrayList<String> send = new ArrayList<String>();
+
+
                     String noofupvotes = response.getString("upvotes");
                     String noofdownvotes = response.getString("downvotes");
                     String upvo = response.getString("upvoted");
                     String downvo = response.getString("downvoted");
+
+                    final ArrayList<String> send = new ArrayList<String>();
                     send.add(json.getString("user_id"));
                     send.add(json.getString("level"));
                     send.add(json.getString("created_at"));
@@ -43,13 +47,45 @@ public class complainOnClick implements View.OnClickListener {
                     send.add(json.getString("statement"));
                     send.add(json.getString("resolve_bool"));
                     send.add(json.getString("id"));
+
                     send.add(noofupvotes);
                     send.add(noofdownvotes);
                     send.add(upvo);
                     send.add(downvo);
-                    fm.beginTransaction()
-                            .replace(R.id.blanklayout, new compldetail().newInstance(send)).addToBackStack(null)
-                            .commit();
+
+                    final JSONArray comments = response.getJSONArray("comments");
+
+
+                    String url2 = "http://192.168.137.1:8000/com/user/user.json/"+json.getString("user_id");
+                    Log.d("Userinfo", url2);
+                    MyJsonRequest req1 = new MyJsonRequest(url2, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                ArrayList<String[]> sendcom = new ArrayList<String[]>();
+                                for (int i=0; i<comments.length(); i++) {
+                                    String[] comarr = new String[3];
+                                    comarr[0] = comments.getJSONObject(i).getString("full_id");
+                                    comarr[1] = comments.getJSONObject(i).getString("text");
+                                    comarr[2] = comments.getJSONObject(i).getString("created_at");
+                                    sendcom.add(comarr);
+                                }
+                                JSONObject userinfo = response.getJSONObject("user");
+                                send.add(userinfo.getString("full_name"));
+                                Log.d("send size chu", send.size()+"");
+                                fm.beginTransaction()
+                                        .replace(R.id.blanklayout, new compldetail().newInstance(send, sendcom)).addToBackStack(null)
+                                        .commit();
+                            } catch (Exception e) {Log.d("exception userinfo", e.getMessage().toString());}
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    Singleton.getInstance().addToRequestQueue(req1);
+
                 } catch (Exception e){}
             }
         }, new Response.ErrorListener() {

@@ -664,7 +664,9 @@ ret = sort(ret);
         int id = item.getItemId();
         final FragmentManager fm = getFragmentManager();
 
-        if (id == R.id.filter_by_hostel) {
+        if (id==R.id.Notification) {
+            notif(findViewById(R.id.blanklayout));
+        } else if (id == R.id.filter_by_hostel) {
 
 
             final allcomplaints allc = new allcomplaints();
@@ -675,6 +677,7 @@ ret = sort(ret);
                 public void onResponse(JSONObject response) {
 
                     String[][] star = convertforfilterbyhostel(response);
+                    Log.d("hostel", star[1].length+"");
                     Fragment ret = allc.newInstance(star);
                     fm.beginTransaction()
                             .replace(R.id.blanklayout, ret).addToBackStack(null)
@@ -703,6 +706,7 @@ ret = sort(ret);
                 public void onResponse(JSONObject response) {
 
                     String[][] star = convertforfilterbyinsti(response);
+                    Log.d("insti", star[0].length+"");
                     Fragment ret = allc.newInstance(star);
                     fm.beginTransaction()
                             .replace(R.id.blanklayout, ret).addToBackStack(null)
@@ -720,7 +724,7 @@ ret = sort(ret);
 
 
         }
-else{
+        else{
             if (id == R.id.filter_by_registered) {
 
 
@@ -760,4 +764,7 @@ else{
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
 }

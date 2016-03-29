@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-    <ScrollView android:background="#ffffff"
+<ScrollView android:background="#ffffff"
     tools:context="com.example.rishabh_pc.complaintsystem.compldetail"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -20,121 +20,121 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/titl"
+            android:id="@+id/titl1"
             android:text="Title"
             android:layout_centerHorizontal="true"
             android:textSize="40sp"/>
 
 
         <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-            android:id="@+id/comptitl"
-            android:layout_below="@+id/titl"
-        android:text="Title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/comptitl1"
+            android:layout_below="@+id/titl1"
+            android:text="Title"
             android:layout_centerHorizontal="true"
-        android:textSize="20sp"/>
-
-
-        <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/compcre"
-        android:text="created_at"
-        android:textSize="20sp"
-        android:layout_below="@id/comptitl"
-        android:layout_marginLeft="120dp"
-        />
+            android:textSize="20sp"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/cre"
+            android:id="@+id/compcre1"
+            android:text="created_at"
+            android:textSize="20sp"
+            android:layout_below="@id/comptitl1"
+            android:layout_marginLeft="120dp"
+            />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/cre1"
             android:text="Created_at :"
             android:textSize="20sp"
-            android:layout_below="@id/comptitl"
+            android:layout_below="@id/comptitl1"
             android:layout_marginLeft="0dp"
             />
 
 
 
         <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/descr"
-        android:text="Description"
-        android:textSize="40sp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/comptitl"
-        android:layout_marginTop="30sp"/>
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/descr1"
+            android:text="Description"
+            android:textSize="40sp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/comptitl1"
+            android:layout_marginTop="30sp"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/compdescr"
+            android:id="@+id/compdescr1"
             android:text="Description"
             android:textSize="20sp"
-            android:layout_below="@id/descr"
+            android:layout_below="@id/descr1"
             android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/compby"
-        android:text="Complaint by"
-        android:textSize="20sp"
-        android:layout_marginLeft="200dp"
-        android:layout_below="@id/compdescr"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/compby1"
+            android:text="Complaint by"
+            android:textSize="20sp"
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compdescr1"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/by"
+            android:id="@+id/by1"
             android:text="Complaint by :"
             android:textSize="20sp"
-            android:layout_below="@id/compdescr"/>
+            android:layout_below="@id/compdescr1"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/complevel"
+            android:id="@+id/complevel1"
             android:text="level"
             android:textSize="20sp"
             android:layout_marginLeft="200dp"
-            android:layout_below="@id/compby"/>
+            android:layout_below="@id/compby1"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/level"
+            android:id="@+id/level1"
             android:text="Complaint level :"
             android:textSize="20sp"
-            android:layout_below="@id/compby"/>
-
-
-        <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/compresid"
-        android:text="Resid"
-            android:layout_marginLeft="200dp"
-        android:textSize="20sp"
-        android:layout_below="@id/complevel"
-        />
+            android:layout_below="@id/compby1"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/resid"
+            android:id="@+id/compresid1"
+            android:text="Resid"
+            android:layout_marginLeft="200dp"
+            android:textSize="20sp"
+            android:layout_below="@id/complevel1"
+            />
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/resid1"
             android:text="Resolve Id :"
             android:textSize="20sp"
-            android:layout_below="@id/level"
+            android:layout_below="@id/level1"
 
 
             />
@@ -143,98 +143,77 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/compresbool"
+            android:id="@+id/compresbool1"
             android:text="complbool"
             android:textSize="20sp"
             android:layout_marginLeft="200dp"
-            android:layout_below="@id/compresid"/>
+            android:layout_below="@id/compresid1"/>
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/resbool"
+            android:id="@+id/resbool1"
             android:text="Resolved or not :"
 
             android:textSize="20sp"
-            android:layout_below="@id/compresid"/>
+            android:layout_below="@id/compresid1"/>
 
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/compid"
+            android:id="@+id/compid1"
             android:text="comp id"
             android:textSize="20sp"
- android:layout_marginLeft="200dp"
-            android:layout_below="@id/compresbool"/>
+            android:layout_marginLeft="200dp"
+            android:layout_below="@id/compresbool1"/>
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/ompid"
+            android:id="@+id/ompid1"
             android:text="Complaint id :"
             android:textSize="20sp"
-            android:layout_below="@id/compresbool"/>
-
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/status"
-            android:text="Status :"
-            android:textSize="20sp"
-            android:layout_below="@id/compid"/>
-
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/compstatus"
-            android:text="Status :"
-            android:textSize="20sp"
-            android:layout_marginLeft="200dp"
-            android:layout_below="@id/compid"/>
-
+            android:layout_below="@id/compresbool1"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Upvote"
-            android:id="@+id/upvote"
+            android:id="@+id/upvote1"
             android:onClick="upvote"
-            android:layout_below="@+id/compstatus"
-        />
+            android:layout_below="@+id/compid1"
+             />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Downvote"
-            android:id="@+id/downvote"
-            android:layout_below="@+id/compstatus"
+            android:id="@+id/downvote1"
+            android:layout_below="@+id/compid1"
             android:onClick="downvote"
             android:layout_marginLeft="280dp"
-
-        />
-
-
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/upvotestatus"
-            android:text=""
-            android:textSize="20sp"
-            android:layout_below="@id/upvote"/>
+             />
 
 
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/downvotestatus"
+            android:id="@+id/upvotestatus1"
             android:text=""
             android:textSize="20sp"
-            android:layout_below="@id/downvote"
+            android:layout_below="@id/upvote1"/>
+
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/downvotestatus1"
+            android:text=""
+            android:textSize="20sp"
+            android:layout_below="@id/downvote1"
             android:layout_alignParentRight="true"/>
 
 

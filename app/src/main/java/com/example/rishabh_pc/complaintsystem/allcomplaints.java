@@ -126,7 +126,7 @@ public class allcomplaints extends Fragment {
             TableRow row = new TableRow(this.getActivity());
             row.setLayoutParams(rowparams);
 //            final String cid = Param1.get(i)[0];
-            row.setOnClickListener(new complainOnClick(Param1.get(i)[0], getFragmentManager()));
+            row.setOnClickListener(new complainOnClick(Param1.get(i)[4], getFragmentManager()));
 
             String[] read1 = Param1.get(i);
 

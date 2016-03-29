@@ -23,7 +23,7 @@ public class complainOnClick implements View.OnClickListener {
     }
 
     public void onClick(View v) {
-        String url = "http://192.168.56.1:8000/com/complaints/complaint.json/"+cid;
+        String url = "http://192.168.137.1:8000/com/complaints/complaint.json/"+cid;
         Log.d("complainOnClick", "worked");
         MyJsonRequest req = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
             @Override
@@ -31,6 +31,10 @@ public class complainOnClick implements View.OnClickListener {
                 try {
                     JSONObject json = response.getJSONObject("complaint");
                     ArrayList<String> send = new ArrayList<String>();
+                    String noofupvotes = response.getString("upvotes");
+                    String noofdownvotes = response.getString("downvotes");
+                    String upvo = response.getString("upvoted");
+                    String downvo = response.getString("downvoted");
                     send.add(json.getString("user_id"));
                     send.add(json.getString("level"));
                     send.add(json.getString("created_at"));
@@ -39,6 +43,10 @@ public class complainOnClick implements View.OnClickListener {
                     send.add(json.getString("statement"));
                     send.add(json.getString("resolve_bool"));
                     send.add(json.getString("id"));
+                    send.add(noofupvotes);
+                    send.add(noofdownvotes);
+                    send.add(upvo);
+                    send.add(downvo);
                     fm.beginTransaction()
                             .replace(R.id.blanklayout, new compldetail().newInstance(send)).addToBackStack(null)
                             .commit();

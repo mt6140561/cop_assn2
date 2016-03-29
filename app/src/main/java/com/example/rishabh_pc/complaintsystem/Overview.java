@@ -117,14 +117,13 @@ public class Overview extends AppCompatActivity
     }
 
 
-
     public void notif(View v) {
         final FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
 
         final noti allg = new noti();
-        String url = "http://192.168.56.1:8000/com/default/notifications.json";
+        String url = "http://192.168.137.1:8000/com/default/notifications.json";
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
@@ -183,7 +182,7 @@ public class Overview extends AppCompatActivity
 //
 //
 //    final particularcomplaint allg = new particularcomplaint();
-//    String url = "http://192.168.56.1:8000/com/complaints/complaint.json/"+a;
+//    String url = "http://192.168.137.1:8000/com/complaints/complaint.json/"+a;
 //    Log.d("frag", "yeh bhi hua");
 //    MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 //
@@ -256,7 +255,7 @@ if (aa.equals("")){
 
 
         final allcomplaints allg = new allcomplaints();
-        String url = "http://192.168.56.1:8000/com/complaints/search.json?keyword="+aa;
+        String url = "http://192.168.137.1:8000/com/complaints/search.json?keyword="+aa;
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
@@ -287,15 +286,13 @@ if (aa.equals("")){
 
 
 
-
-
     public void allcomplaints(View v) {
         final FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
 
         final allcomplaints allg = new allcomplaints();
-        String url = "http://192.168.56.1:8000/com/complaints/list.json";
+        String url = "http://192.168.137.1:8000/com/complaints/list.json";
         Log.d("frag", "yeh bhi hua");
         MyJsonRequest jobjre = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
 
@@ -671,7 +668,7 @@ ret = sort(ret);
 
 
             final allcomplaints allc = new allcomplaints();
-            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            String url = "http://192.168.137.1:8000/com/complaints/listt.json";
             Log.d("frag", "yeh bhi hua");
             MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
                 @Override
@@ -699,7 +696,7 @@ ret = sort(ret);
 
 
             final allcomplaints allc = new allcomplaints();
-            String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+            String url = "http://192.168.137.1:8000/com/complaints/listt.json";
             Log.d("frag", "yeh bhi hua");
             MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
                 @Override
@@ -728,7 +725,7 @@ else{
 
 
                 final allcomplaints allc = new allcomplaints();
-                String url = "http://192.168.56.1:8000/com/complaints/listt.json";
+                String url = "http://192.168.137.1:8000/com/complaints/listt.json";
                 Log.d("frag", "yeh bhi hua");
                 MyJsonRequest jobjre = new MyJsonRequest( url, new Response.Listener<JSONObject>(){
                     @Override

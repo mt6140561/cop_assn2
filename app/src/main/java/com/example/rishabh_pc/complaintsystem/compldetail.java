@@ -1,13 +1,23 @@
 package com.example.rishabh_pc.complaintsystem;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -39,9 +49,10 @@ public class compldetail extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
+     * //     *
+     * //     * @param param1 Parameter 1.
+     * //     * @param param2 Parameter 2.
+     *
      * @return A new instance of fragment compldetail.
      */
     // TODO: Rename and change types and number of parameters
@@ -53,6 +64,7 @@ public class compldetail extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,15 +79,181 @@ public class compldetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View va = inflater.inflate(R.layout.fragment_compldetail, container, false);
-        ((TextView)va.findViewById(R.id.compby)).setText(send.get(0));
-        ((TextView)va.findViewById(R.id.complevel)).setText(send.get(1));
-        ((TextView)va.findViewById(R.id.compcre)).setText(send.get(2));
-        ((TextView)va.findViewById(R.id.comptitl)).setText(send.get(3));
-        ((TextView)va.findViewById(R.id.compresid)).setText(send.get(4));
-        ((TextView)va.findViewById(R.id.compdescr)).setText(send.get(5));
-        ((TextView)va.findViewById(R.id.compresbool)).setText(send.get(6));
-        ((TextView)va.findViewById(R.id.compid)).setText(send.get(7));
+        final View va = inflater.inflate(R.layout.fragment_compldetail, container, false);
+        ((TextView) va.findViewById(R.id.compby)).setText(send.get(0));
+        ((TextView) va.findViewById(R.id.complevel)).setText(send.get(1));
+        ((TextView) va.findViewById(R.id.compcre)).setText(send.get(2));
+        ((TextView) va.findViewById(R.id.comptitl)).setText(send.get(3));
+        ((TextView) va.findViewById(R.id.compresid)).setText(send.get(4));
+        ((TextView) va.findViewById(R.id.compdescr)).setText(send.get(5));
+        ((TextView) va.findViewById(R.id.compresbool)).setText(send.get(6));
+        ((TextView) va.findViewById(R.id.compid)).setText(send.get(7));
+
+        if (send.get(10).equals("true")) {
+            String abc = "upvoted";
+            ((TextView) va.findViewById(R.id.compstatus)).setText(abc);
+        } else {
+
+            if (send.get(11).equals("true")) {
+                String abc = "downvoted";
+                ((TextView) va.findViewById(R.id.compstatus)).setText(abc);
+            } else {
+                String abc = "Neither downvoted nor upvoted";
+                ((TextView) va.findViewById(R.id.compstatus)).setText(abc);
+            }
+
+        }
+
+        String qwe = "Upvote(" + send.get(8) + ")";
+        ((Button) (va.findViewById(R.id.upvote))).setText(qwe);
+
+
+        String qw = "downvote(" + send.get(9) + ")";
+        ((Button) (va.findViewById(R.id.downvote))).setText(qw);
+
+        Button upvo = (Button) va.findViewById(R.id.upvote);
+        upvo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                TextView abc = ((TextView) (va.findViewById(R.id.compid)));
+
+                String cid = abc.getText().toString();
+
+
+                String url = "http://192.168.137.1:8000/com/complaints/vote.json/" + cid + "/up";
+                MyJsonRequest request = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Login", "some error");
+
+                    }
+                });
+
+
+                Singleton.getInstance().addToRequestQueue(request);
+
+
+                TextView qwer = ((TextView) (va.findViewById(R.id.compstatus)));
+
+                Button upv = (Button) (va.findViewById(R.id.upvote));
+                Button downv = (Button) (va.findViewById(R.id.downvote));
+                String iniupvtext = upv.getText().toString();
+                String inidownvtext = downv.getText().toString();
+                int noup = Integer.parseInt(iniupvtext.substring(7, iniupvtext.length() - 1));
+                int nodown = Integer.parseInt(inidownvtext.substring(9, inidownvtext.length() - 1));
+
+
+                String ac = ((TextView) (va.findViewById(R.id.compstatus))).getText().toString();
+                if (ac.equals("upvoted")) {
+
+                } else {
+                    if (ac.equals("downvoted")) {
+                        String aq = "upvoted";
+
+                        String finup = "Upvote(" + (noup + 1) + ")";
+                        String findown = "Downvote(" + (nodown - 1) + ")";
+                        upv.setText(finup);
+                        downv.setText(findown);
+
+                        qwer.setText(aq);
+
+                    } else {
+                        String ty = "upvoted";
+                        qwer.setText(ty);
+                        String finup = "Upvote(" + (noup + 1) + ")";
+                        upv.setText(finup);
+                    }
+                }
+
+            }
+
+
+        });
+
+
+        Button downvo = (Button) va.findViewById(R.id.downvote);
+        downvo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                TextView abc = ((TextView) (va.findViewById(R.id.compid)));
+
+                String cid = abc.getText().toString();
+
+
+                String url = "http://192.168.137.1:8000/com/complaints/vote.json/" + cid + "/down";
+                MyJsonRequest request = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Login", "some error");
+
+                    }
+                });
+
+
+                Singleton.getInstance().addToRequestQueue(request);
+
+
+                TextView qwer = ((TextView) (va.findViewById(R.id.compstatus)));
+
+                Button upv = (Button) (va.findViewById(R.id.upvote));
+                Button downv = (Button) (va.findViewById(R.id.downvote));
+                String iniupvtext = upv.getText().toString();
+                String inidownvtext = downv.getText().toString();
+                int noup = Integer.parseInt(iniupvtext.substring(7, iniupvtext.length() - 1));
+                int nodown = Integer.parseInt(inidownvtext.substring(9, inidownvtext.length() - 1));
+
+
+                String ac = ((TextView) (va.findViewById(R.id.compstatus))).getText().toString();
+                Log.d("check down",ac);
+
+                if (ac.equals("downvoted")||ac.equals("changed to downvote")) {
+
+                } else {
+                    if (ac.equals("upvoted")) {
+                        String aq = "downvoted";
+
+                        String finup = "Upvote(" + (noup - 1) + ")";
+                        String findown = "Downvote(" + (nodown + 1) + ")";
+                        upv.setText(finup);
+                        downv.setText(findown);
+
+                        qwer.setText(aq);
+
+                    } else {
+                        String ty = "downvoted";
+                        qwer.setText(ty);
+                        String finup = "downvote(" + (nodown + 1) + ")";
+                        downv.setText(finup);
+                    }
+                }
+
+            }
+
+
+        });
+
+
+
+
+
+
+
 
         return va;
 
@@ -99,11 +277,16 @@ public class compldetail extends Fragment {
         }
     }
 
+
+
+
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
+
 
 
     /**
@@ -120,4 +303,7 @@ public class compldetail extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 }

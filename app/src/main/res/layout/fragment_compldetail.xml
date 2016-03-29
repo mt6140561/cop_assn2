@@ -204,6 +204,7 @@
             android:text="Upvote"
             android:id="@+id/upvote"
             android:onClick="upvote"
+            android:layout_marginLeft="20dp"
             android:layout_below="@+id/compstatus"
         />
 
@@ -214,28 +215,22 @@
             android:id="@+id/downvote"
             android:layout_below="@+id/compstatus"
             android:onClick="downvote"
-            android:layout_marginLeft="280dp"
+            android:layout_marginLeft="270dp"
 
         />
 
 
-        <TextView
-            android:layout_height="wrap_content"
+        <Button
             android:layout_width="wrap_content"
-            android:id="@+id/upvotestatus"
-            android:text=""
-            android:textSize="20sp"
-            android:layout_below="@id/upvote"/>
+            android:layout_height="wrap_content"
+            android:text="Resolve"
+            android:id="@+id/resolve"
+            android:layout_below="@+id/compstatus"
+            android:onClick="resolve"
+            android:layout_centerHorizontal="true"
 
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/downvotestatus"
-            android:text=""
-            android:textSize="20sp"
-            android:layout_below="@id/downvote"
-            android:layout_alignParentRight="true"/>
+            />
 
 
     </RelativeLayout>

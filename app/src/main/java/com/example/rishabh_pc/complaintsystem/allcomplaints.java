@@ -14,6 +14,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 
@@ -120,7 +125,8 @@ public class allcomplaints extends Fragment {
         for (int i = 0; i < Param1.size(); i++) {
             TableRow row = new TableRow(this.getActivity());
             row.setLayoutParams(rowparams);
-
+//            final String cid = Param1.get(i)[0];
+            row.setOnClickListener(new complainOnClick(Param1.get(i)[0], getFragmentManager()));
 
             String[] read1 = Param1.get(i);
 

@@ -754,7 +754,10 @@ ret = sort(ret);
 
             }
             else if (id==R.id.logout){
+                this.finish();
+                Intent intent = new Intent(this, Login.class);
 
+                startActivity(intent);
             }
         }
         }
@@ -764,6 +767,8 @@ ret = sort(ret);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 

@@ -52,6 +52,8 @@ public class compldetail extends Fragment {
         // Required empty public constructor
     }
 
+
+    public String loginuserid="";
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -107,7 +109,7 @@ public class compldetail extends Fragment {
         ((TextView) va.findViewById(R.id.compdescr)).setText(send.get(5));
         ((TextView) va.findViewById(R.id.compresbool)).setText(send.get(6));
         ((TextView) va.findViewById(R.id.compid)).setText(send.get(7));
-
+        loginuserid = send.get(12);
         if (send.get(10).equals("true")) {
             String abc = "upvoted";
             ((TextView) va.findViewById(R.id.compstatus)).setText(abc);
@@ -196,6 +198,71 @@ public class compldetail extends Fragment {
 
 
         });
+
+
+        Button reso = (Button) va.findViewById(R.id.resolve);
+        reso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                TextView abc = ((TextView) (va.findViewById(R.id.compresbool)));
+
+                TextView abcd = ((TextView) (va.findViewById(R.id.compid)));
+
+                String cid = abcd.getText().toString();
+                String resolvedornot = abc.getText().toString();
+
+                String url = "http://192.168.137.1:8000/com/complaints/resolve.json/" + cid ;
+
+
+                MyJsonRequest request = new MyJsonRequest(url, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Login", "some error");
+
+                    }
+                });
+
+
+                Singleton.getInstance().addToRequestQueue(request);
+
+
+                String ttt = ((TextView) va.findViewById((R.id.compresid))).getText().toString();
+
+                if (loginuserid.equals(ttt)) {
+                    if (resolvedornot.equals("false")) {
+                        String r = "true";
+                        abc.setText(r);
+
+                    } else {
+
+                    }
+
+                } else {
+
+                }
+
+            }
+
+
+        });
+
+
+
+
+
+
+
+
+
+
 
 
         Button downvo = (Button) va.findViewById(R.id.downvote);
